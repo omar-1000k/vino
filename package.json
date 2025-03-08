@@ -1,0 +1,31 @@
+{
+  "name": "vino",
+  "version": "1.0.0",
+  "description": "Proyecto de vino",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omar-1000k/vino.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/omar-1000k/vino/issues"
+  },
+  "homepage": "https://github.com/omar-1000k/vino#readme",
+  "dependencies": {
+    "@astrojs/svelte": "^7.0.5",
+    "astro": "^5.4.2",
+    "nanostore": "^1.2.1",
+    "svelte": "^5.22.6",
+    "typescript": "^5.8.2"
+  }
+}

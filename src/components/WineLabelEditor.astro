@@ -1,0 +1,173 @@
+<client:visible>
+  <!-- Dependencias -->
+  <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&Montserrat:wght@300;600&display=swap');</style>
+
+  <div class="editor-container">
+    <div class="text-input-section">
+      <label>Texto de la etiqueta:</label>
+      <input
+        type="text"
+        bind:value={text}
+        maxlength="50"
+        placeholder="Escribe el texto para la etiqueta..."
+      />
+    </div>
+
+    <div class="preview-section">
+      <label>Previsualización:</label>
+      <WineLabelPreview
+        text={text}
+        font={selectedFont}
+        fontSize={fontSize}
+        spacing={spacing}
+        position={position}
+      />
+    </div>
+
+    <div class="controls-section">
+      <div class="slider-control">
+        <label>Tamaño de fuente:</label>
+        <input
+          type="range"
+          min="12"
+          max="36"
+          bind:value={fontSize}
+          step="2"
+        />
+        <span>{fontSize}px</span>
+      </div>
+
+      <div class="slider-control">
+        <label>Espaciado:</label>
+        <input
+          type="range"
+          min="0"
+          max="20"
+          bind:value={spacing}
+          step="1"
+        />
+        <span>{spacing}px</span>
+      </div>
+
+      <div class="slider-control">
+        <label>Posición vertical:</label>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          bind:value={position}
+          step="5"
+        />
+        <span>{position}%</span>
+      </div>
+
+      <div class="font-selector">
+        <label>Seleccionar fuente:</label>
+        <select bind:value={selectedFont}>
+          {fonts.map((font) => (
+            <option value={font.family}>{font.name}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+
+    <div class="template-section">
+      <label>Seleccionar plantilla:</label>
+      <div class="template-buttons">
+        {templates.map((template) => (
+          <button
+            class={template.active ? 'active' : ''}
+            on:click={() => loadTemplate(template)}
+          >
+            {template.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</client:visible>
+
+<script>
+  import WineLabelPreview from './WineLabelPreview.svelte';
+  import { fontStore } from '../stores/fontStore';
+  import { templateStore } from '../stores/templateStore';
+
+  let text = "Mi Etiqueta de Vino";
+  let selectedFont = "Playfair Display";
+  let fontSize = 24;
+  let spacing = 4;
+  let position = 50;
+
+  let fonts = fontStore();
+  let templates = templateStore();
+</script>
+
+<style>
+  .editor-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .text-input-section,
+  .preview-section,
+  .controls-section,
+  .template-section {
+    margin-bottom: 2rem;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .slider-control {
+    margin: 1rem 0;
+  }
+
+  .slider-control input[type="range"] {
+    width: 100%;
+  }
+
+  .font-selector select {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .template-buttons button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+
+  .template-buttons button.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  /* Estilos táctiles */
+input[type="range"] {
+  width: 100%;
+  height: 2.5rem;
+  margin: 0.5rem 0;
+}
+
+button {
+  touch-action: manipulation;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+}
+
+input[type="text"] {
+  font-size: 1rem;
+  padding: 0.75rem;
+}
+
+</style>
